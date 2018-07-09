@@ -9,7 +9,7 @@ a web page continuously. It can detect when an enrollment to a course starts, wh
 consert tickets are available, when the price at auction page changes, etc.
 
 Syntax to run WebNotifier is
-'php webnotifier.php {properties-file-name}'
+`php webnotifier.php {properties-file-name}`
 
 if properties-file-name is omitted, default properties file webnotify.properties is used
 
@@ -24,6 +24,10 @@ Properties file is a text file containing key=value -pairs:
 Below is an example of a properties file. This monitors if text "price $100" is not found in http://some-auction-page.com/?item=123. When then price on the page changes, new mail is sent to me@mymail.com
 
 url=http://some-auction-page.com/?item=123
+
 key=price $100
+
 match=false
+
 mail=me@mymail.com
+
