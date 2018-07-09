@@ -1,5 +1,5 @@
 # WebNotifier
-WebNotifier is a small utility (written in PHP) that helps you to monitor changes in a web page.
+WebNotifier is a small utility (written in PHP) that helps you to monitor changes on a web page.
 
 WebNotifier reads the html-code of a web page and searches for a regular expression on html-code.
 If match is found (or not found), WebNotifier will send an email message to your address.
