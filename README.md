@@ -23,11 +23,9 @@ Properties file is a text file containing key=value -pairs:
 
 Below is an example of a properties file. This monitors if text "price $100" is not found in http://some-auction-page.com/?item=123. When then price on the page changes, new mail is sent to me@mymail.com
 
+```
 url=http://some-auction-page.com/?item=123
-
 key=price $100
-
 match=false
-
 mail=me@mymail.com
-
+```
