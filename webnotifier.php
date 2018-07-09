@@ -5,7 +5,7 @@
  * tok (at) iki . fi
  */
 
-define('DEFAULT_PROPERTIES_FILE','webnotify.properties');
+define('DEFAULT_PROPERTIES_FILE','webnotifier.properties');
 define('MAILSENT_FILE_EXTENSION','MAILSENT');
 define('KEY_URL','url');
 define('KEY_KEY','key');
@@ -14,7 +14,7 @@ define('KEY_MAIL','mail');
 define('KEY_COOKIE','cookie');
 
 function sendmail($to,$msg,$mailsent_file) { 
-	if (mail($to,'Notification from WebNotify',$msg.PHP_EOL)) {
+	if (mail($to,'Notification from WebNotifier',$msg.PHP_EOL)) {
 		$fp = fopen($mailsent_file,"w");
 		fwrite($fp,$msg);
 		fclose($fp);
