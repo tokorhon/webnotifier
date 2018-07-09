@@ -1,26 +1,8 @@
 <?php
 /**
- * Lähettää sähköpostia annettuun osoitteeseen,
- * jos annetulta www-sivulta löytyy / ei löydy
- * annettu säännöllinen lauseke.
- * 
- * Syntaksi: php webnotify.php {properties-file}
- * 
- * Properties-tiedoston nimi voidaan antaa komentoriviparametrina
- * Jos sitä ei ole annettu, käytetään oletusta webnotify.properties
- * 
- * Lukee properties-tiedostosta seuraavat avaimet:
- * url : osoite josta www-sivu haetaan
- * key : säännöllinen lauseke, jota etsitään www-sivin html-koodista
- * match : jos true ja säännöllinen lauseke löytyy
- *         tai jos false ja säännöllistä lauseketta ei löydy
- *         lähettää sähköpostia
- * mail : osoite johon lähetetään sähköpostia
- * Sähköpostia lähetetään vain jos tiedostoa
- * <properties-file>.MAILSENT ei ole olemassa.
- * Kun sähköposti on lähetetty, luo tiedoston <properties-file>.MAILSENT
- * (so. lähettää sähköpostia vain kerran).
- * 
+ * WebNotifier
+ * (c) Tommi Korhonen 
+ * tok (at) iki . fi
  */
 
 define('DEFAULT_PROPERTIES_FILE','webnotify.properties');
