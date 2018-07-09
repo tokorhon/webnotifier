@@ -21,7 +21,7 @@ Properties file is a text file containing key=value -pairs:
 * mail : email address. The address where the mail is sent. WebNotifier uses default PHP mail function which assumes mail server configuration is done in your php.ini
 * cookie : a cookie to set. The value of this key is cookie-name=cookie-value (e.g. cookie=JSESSION=123abc567). Only one cookie can be set. This key is optional.
 
-Below is an example of a properties file. This monitors if text "price $100" is not found in http://some-auction-page.com/?item=123. When then price on the page changes, new mail is sent to me@mymail.com
+Below is an example of a properties file. This monitors if text "price $100" is not found in http<span></span>://some-auction-page.com/?item=123. When then price on the page changes, new mail is sent to me<span></span>@mymail.com
 
 ```
 url=http://some-auction-page.com/?item=123
