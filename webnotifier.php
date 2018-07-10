@@ -6,22 +6,30 @@
  */
 
 define('DEFAULT_PROPERTIES_FILE','webnotifier.properties');
-define('MAILSENT_FILE_EXTENSION','MAILSENT');
+define('CONTENT_FILE_POSTFIX','-content.html');
 define('KEY_URL','url');
 define('KEY_KEY','key');
 define('KEY_MATCH','match');
 define('KEY_MAIL','mail');
 define('KEY_COOKIE','cookie');
 
-function sendmail($to,$msg,$mailsent_file) { 
+function sendmail($to,$msg) { 
 	if (mail($to,'Notification from WebNotifier',$msg.PHP_EOL)) {
-		$fp = fopen($mailsent_file,"w");
-		fwrite($fp,$msg);
-		fclose($fp);
 		print "Mail sent to $to".PHP_EOL;
+		return true;
 	} else {
 		print "Mail failed".PHP_EOL;
+		return false;
 	}
+}
+
+function writefile($filename,$content) {
+	$fp = fopen($filename,"w");
+	if ($fp !== false) {
+		fwrite($fp,$content);
+		fclose($fp);
+		print "URL content written to $filename".PHP_EOL;
+	}	
 }
 
 // http://stackoverflow.com/questions/1975461/how-to-get-file-get-contents-work-with-https
@@ -45,12 +53,13 @@ $properties_file = isset($argv[1]) ? $argv[1] : DEFAULT_PROPERTIES_FILE;
 if (!file_exists($properties_file)) {
 	exit("File $properties_file not found in current directory");
 }
-$mailsent_file = $properties_file . '.' . MAILSENT_FILE_EXTENSION;
-if (file_exists($mailsent_file)) exit;
+$content_file = pathinfo($properties_file)['filename'] . CONTENT_FILE_POSTFIX;
+if (file_exists($content_file)) exit;
 
 $propfile = file($properties_file);
 $properties = array();
 foreach($propfile as $line) {
+	if (trim($line) == '') continue;
 	list($key,$value) = explode('=',trim($line),2);
 	$properties[$key] = $value;
 }
@@ -72,15 +81,19 @@ if ($html !== false && $html != '') {
 	$key = $properties[KEY_KEY];
 	if (preg_match("/$key/",$html,$matches)) {		
 		if (strtoupper($properties[KEY_MATCH]) == 'TRUE') {			
-			$msg = "Regex /$key/ (match=".$matches[0].")  found in $url";
+			$msg = "Regex /$key/ (match=".$matches[0].") found in $url";
 			print $msg.PHP_EOL; 
-			sendmail($properties[KEY_MAIL],$msg,$mailsent_file);			
+			if (sendmail($properties[KEY_MAIL],$msg)) {
+				writefile($content_file,$html);
+			}			
 		}
 	} else {
 		if (strtoupper($properties[KEY_MATCH]) == 'FALSE') {
 			$msg = "Regex '$key' not found in $url"; 
 			print $msg.PHP_EOL; 
-			sendmail($properties[KEY_MAIL],$msg,$mailsent_file);
+			if (sendmail($properties[KEY_MAIL],$msg)) {
+				writefile($content_file,$html);
+			}
 		}		
 	}	
 }
